@@ -1,0 +1,91 @@
+﻿    <Window x:Class="DiffPlex_השוואת_טקסטים.MainWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:diffplex="clr-namespace:DiffPlex.Wpf.Controls;assembly=DiffPlex.Wpf"
+            FlowDirection="RightToLeft"
+            Title="DIffPlex - השוואת טקסטים"
+            WindowState="Maximized"
+            Height="auto" Width="auto" Icon="/Resources/compareIcon.png">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="5,0,5,1"/>
+        </Style>
+    </Window.Resources>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <diffplex:DiffViewer x:Name="DiffView" Grid.Row="0" Grid.ColumnSpan="2"
+                                 OldTextHeader="ישן" NewTextHeader="חדש" HeaderForeground="#808080"
+                                 IgnoreUnchanged="False" LinesContext="2">
+        </diffplex:DiffViewer>
+
+        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="PasteOldText" ToolTip="הדבק טקסט" Click="PasteOldText_Click">
+                <Image Source="/Resources/PasteIcon.png" Height="16"/>
+            </Button>
+            <Button x:Name="OpenOldTextFile" ToolTip="פתח קובץ" Click="OpenOldTextFile_Click">
+                <Image Source="/Resources/OpenFileIcon.png" Height="16"/>
+            </Button>
+            <Button x:Name="ClearOldText" ToolTip="נקה" Click="ClearOldText_Click">
+                <Image Source="/Resources/ClearIcon.png" Height="15"/>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button x:Name="PasteNewText" ToolTip="הדבק טקסט" Click="PasteNewText_Click">
+                <Image Source="/Resources/PasteIcon.png" Height="16"/>
+            </Button>
+            <Button x:Name="OpenNewTextFile" ToolTip="פתח קובץ" Click="OpenNewTextFile_Click">
+                <Image Source="/Resources/OpenFileIcon.png" Height="16"/>
+            </Button>
+            <Button x:Name="ClearNewText" ToolTip="נקה" Click="ClearNewText_Click">
+                <Image Source="/Resources/ClearIcon.png" Height="15"/>
+            </Button>
+        </StackPanel>
+
+
+        <Grid  Grid.Row="2"  Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal"   Background="#20808080">
+                <!--<Button Width="20" Height="20" x:Name="FutherActionsButton" Content="…" Click="FutherActionsButton_Click" BorderBrush="{x:Null}" BorderThickness="0" Margin="10,0,31,0" />-->
+                <Button x:Name="WindowButton" Content="פתח חלונית חדשה" Click="WindowButton_Click" BorderBrush="{x:Null}" Margin="0,0,32,0" Foreground="{Binding Foreground, ElementName=DiffView}"/>
+                <CheckBox VerticalContentAlignment="Center" Content="תצוגה מקבילה" IsChecked="{Binding IsSideBySide, ElementName=DiffView}" Foreground="{Binding Foreground, ElementName=DiffView}" Margin="0,0,32,0"/>
+                <CheckBox VerticalContentAlignment="Center" x:Name="IgnoreUnchangedCheckBox" IsChecked="{Binding IgnoreUnchanged, ElementName=DiffView}" Content="כווץ טקסט ללא שינויים"   Foreground="{Binding Foreground, ElementName=DiffView}" Margin="0,0,32,0"/>
+                <Label Height="20" VerticalContentAlignment="Center" Padding="0,0,8,0" x:Name="MarginLineCountLabel" Target="{Binding ElementName=MarginLineCount}" Foreground="{Binding Foreground, ElementName=DiffView}">שורות מקשרות</Label>
+                <TextBox VerticalContentAlignment="Center" x:Name="MarginLineCount" Padding="8,0,8,0" Text="{Binding LinesContext, ElementName=DiffView, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding Foreground, ElementName=DiffView}" Background="{x:Null}" FontSize="10" Height="15"  Margin="0,0,32,0"/>
+
+                
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button x:Name="SearchNextButton" Height="18" Width="20" ToolTip="מצא את השינוי הבא" Click="SearchNextButton_Click">
+                    <TextBlock Text="⋁" FontSize="10" Margin="-8,0,0,0"
+    LineHeight="12" Foreground="{Binding Foreground, ElementName=DiffView}">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="2"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Button>
+                <Button x:Name="SearchPreviousButton" Height="18" Width="20" ToolTip="מצא את שינוי הקודם" Click="SearchPreviousButton_Click">
+                    <TextBlock Text="⋀" FontSize="10" Margin="-8,0,0,0"
+                               LineHeight="12" Foreground="{Binding Foreground, ElementName=DiffView}">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="2"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Button>
+                <Button x:Name="DarkMode" Content="☽" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Foreground="{Binding Foreground, ElementName=DiffView}" ToolTip="תצוגה כהה \ בהירה" Click="DarkMode_Click"/>
+            </StackPanel>
+            
+        </Grid>
+            
+    </Grid>
+    </Window>
