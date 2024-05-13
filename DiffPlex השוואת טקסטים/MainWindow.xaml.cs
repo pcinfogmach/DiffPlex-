@@ -22,9 +22,6 @@ namespace DiffPlex_השוואת_טקסטים
         {
             setColor(Properties.Settings.Default.IsDarkMode);
 
-            Grid grid = DiffView.Content as Grid;
-            //drill doen grid and set all textblocks to wrapwithoverflow
-
             //DiffView.OldText = TestData.DuplicateText(TestData.OldText, 100);
             //DiffView.NewText = TestData.DuplicateText(TestData.NewText, 100);
             //DiffView.SetHeaderAsOldToNew();        
@@ -81,7 +78,7 @@ namespace DiffPlex_השוואת_טקסטים
         private void OpenOldTextFile_Click(object sender, RoutedEventArgs e)
         {
             DiffView.OpenFileOnLeft();
-            if (!string.IsNullOrWhiteSpace(DiffView.OldText))
+            if (string.IsNullOrWhiteSpace(DiffView.OldText))
             {
                 DiffView.NewText = "אנא הזן טקסט להשוואה";
             }
@@ -103,7 +100,7 @@ namespace DiffPlex_השוואת_טקסטים
         private void OpenNewTextFile_Click(object sender, RoutedEventArgs e)
         {
             DiffView.OpenFileOnRight();
-            if (!string.IsNullOrWhiteSpace(DiffView.NewText))
+            if (string.IsNullOrWhiteSpace(DiffView.NewText))
             {
                 DiffView.OldText = "אנא הזן טקסט להשוואה";
             }
